@@ -86,7 +86,7 @@ const GitHubStarButton = ({ starCount, isDark }) => {
     const formattedStarCount = starCount.toLocaleString()
 
     return (
-        <Link href='https://www.autodecora.com' target='_blank' underline='none' sx={{ display: 'inline-flex' }}>
+        <Link href='https://www.autodecora.com' target='_blank' underline='none' sx={{ display: 'AutoDecora' }}>
             <Box
                 sx={{
                     display: 'flex',
