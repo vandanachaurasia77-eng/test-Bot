@@ -1,9 +1,9 @@
 const Logo = () => {
     return (
         <img
-            src="/logo192.png"
+            src="/homepagelogo40.png"
             alt="AutoDecora"
-            style={{ height: '192px', objectFit: 'contain' }}
+            style={{ height: 'auto', objectFit: 'contain' }}
         />
     )
 }
