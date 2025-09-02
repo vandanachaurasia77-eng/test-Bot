@@ -3,7 +3,7 @@ const Logo = () => {
         <img
             src="/homepagelogo40.png"
             alt="AutoDecora"
-            style={{ height: 'auto', objectFit: 'contain' }}
+            style={{ objectFit: 'contain', height: 'auto', width: 140' }}
         />
     )
 }
