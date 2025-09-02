@@ -169,7 +169,7 @@ export const defaultThemeConfig = {
         },
         footer: {
             textColor: '#303235',
-            text: 'Powered by',
+            text: 'Powered by Autodecora',
             company: 'Autodecora',
             companyLink: 'https://autodecora.com'
         }
