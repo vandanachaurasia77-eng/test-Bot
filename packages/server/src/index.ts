@@ -35,20 +35,6 @@ import { Organization } from './enterprise/database/entities/organization.entity
 import { GeneralRole, Role } from './enterprise/database/entities/role.entity'
 import { migrateApiKeysFromJsonToDb } from './utils/apiKey'
 import { ExpressAdapter } from '@bull-board/express'
-import * as BotpressLike from '@components/nodes/botpress-like'
-
-function registerCustomNodes(app: any) {
-  app.registerNode('choiceNode', BotpressLike.ChoiceNode)
-  app.registerNode('imageReplyNode', BotpressLike.ImageReplyNode)
-  app.registerNode('locationNode', BotpressLike.LocationNode)
-  app.registerNode('captureFormNode', BotpressLike.CaptureFormNode)
-  app.registerNode('emailNode', BotpressLike.EmailNode)
-}
-
-export function initServer(app: any) {
-  // existing...
-  registerCustomNodes(app)
-}
 
 declare global {
     namespace Express {
