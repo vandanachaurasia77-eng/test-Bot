@@ -8,6 +8,7 @@ class ChoiceNode implements INode {
     category: string
     description: string
     baseClasses: string[]
+    version: number   // 👈 NEW
 
     inputs: INodeParams[]
     outputs: INodeParams[]
@@ -16,10 +17,11 @@ class ChoiceNode implements INode {
         this.label = 'Choice Node'
         this.name = 'choiceNode'
         this.type = 'Choice'
-        this.icon = 'fa-hand-pointer' // any FontAwesome icon
+        this.icon = 'fa-hand-pointer'
         this.category = 'Chat'
         this.description = 'Presents multiple choices and saves user selection'
         this.baseClasses = ['ChoiceNode']
+        this.version = 1   // 👈 REQUIRED
 
         this.inputs = [
             {
@@ -48,7 +50,6 @@ class ChoiceNode implements INode {
     async run(nodeData: INodeData): Promise<any> {
         const question = nodeData.inputs?.question as string
         const choices = (nodeData.inputs?.choices as string).split(',')
-        // Simulate: return the variable user will fill later
         return `${question}\n\n${choices.join('\n')}`
     }
 }
