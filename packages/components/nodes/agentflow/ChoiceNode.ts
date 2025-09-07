@@ -1,53 +1,56 @@
-import { INode, INodeParams, INodeOutputs } from '../../src/Interface'
+import { INode, INodeData, INodeParams } from '../../src/Interface'
 
-/**
- * ChoiceNode
- * Shows a message + renders quick reply buttons in the UI.
- * Stores the selected value into workflow variable (e.g., menuChoice).
- */
 class ChoiceNode implements INode {
-  label = 'Choice (Quick Replies)'
-  name = 'choiceNode'
-  type = 'ChoiceNode'
-  category = 'Chat'
-  version = 1.0
+    label: string
+    name: string
+    type: string
+    icon: string
+    category: string
+    description: string
+    baseClasses: string[]
 
-  inputs: INodeParams[] = [
-    { label: 'Prompt', name: 'prompt', type: 'string', placeholder: 'Choose an option:' },
-    { label: 'Choices (comma separated)', name: 'choices', type: 'string', placeholder: 'Rooms, Location, Book' },
-    { label: 'Store As (variable)', name: 'storeVar', type: 'string', placeholder: 'menuChoice' }
-  ]
+    inputs: INodeParams[]
+    outputs: INodeParams[]
 
-  outputs: INodeOutputs[] = [
-    { label: 'On Select', name: 'onSelect', baseClasses: ['string'] }
-  ]
+    constructor() {
+        this.label = 'Choice Node'
+        this.name = 'choiceNode'
+        this.type = 'Choice'
+        this.icon = 'fa-hand-pointer' // any FontAwesome icon
+        this.category = 'Chat'
+        this.description = 'Presents multiple choices and saves user selection'
+        this.baseClasses = ['ChoiceNode']
 
-  async run(nodeData: any) {
-    const prompt: string = nodeData.inputs?.prompt || 'Choose:'
-    const choicesCsv: string = nodeData.inputs?.choices || ''
-    const storeVar: string = nodeData.inputs?.storeVar || 'menuChoice'
-    const choices = choicesCsv.split(',').map(s => s.trim()).filter(Boolean)
+        this.inputs = [
+            {
+                label: 'Question',
+                name: 'question',
+                type: 'string',
+                default: 'Please choose an option:'
+            },
+            {
+                label: 'Choices (comma-separated)',
+                name: 'choices',
+                type: 'string',
+                default: '1️⃣ Rooms, 2️⃣ Location, 3️⃣ Book a Room, 4️⃣ Schedule a Call'
+            }
+        ]
 
-    // Emit a UI directive the UI can understand
-    const message = {
-      type: 'quick_replies',       // UI will render buttons for this
-      text: prompt,
-      choices                      // e.g., ["Rooms","Location","Book"]
+        this.outputs = [
+            {
+                label: 'Selected Choice',
+                name: 'output',
+                type: 'string'
+            }
+        ]
     }
 
-    // Flowise expects to return what goes to the next edge.
-    // We'll wait for user selection via frontend; value will come back
-    // as nodeData.websocketInput?.text (Flowise pattern for chat UIs).
-    if (nodeData.websocketInput?.text) {
-      // Save to flow state:
-      nodeData.flowData = nodeData.flowData || {}
-      nodeData.flowData[storeVar] = nodeData.websocketInput.text
-      return nodeData.websocketInput.text
+    async run(nodeData: INodeData): Promise<any> {
+        const question = nodeData.inputs?.question as string
+        const choices = (nodeData.inputs?.choices as string).split(',')
+        // Simulate: return the variable user will fill later
+        return `${question}\n\n${choices.join('\n')}`
     }
-
-    // First render pass: send UI payload so frontend shows buttons
-    return { ui: message }
-  }
 }
 
 module.exports = { nodeClass: ChoiceNode }
