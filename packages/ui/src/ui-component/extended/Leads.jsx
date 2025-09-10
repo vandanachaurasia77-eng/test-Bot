@@ -148,11 +148,11 @@ const Leads = ({ dialogProps }) => {
                         <Typography variant='h4'>Form fields</Typography>
                         <Box sx={{ width: '100%' }}>
                             <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 1 }}>
-                                <SwitchInput label='Preferred Call Time' onChange={(value) => handleChange('Preferred_Call_Time', value)} value={leadsConfig.Preferred_Call_Time} />
+                                <SwitchInput label='Name' onChange={(value) => handleChange('name', value)} value={leadsConfig.name} />
                                 <SwitchInput
-                                    label='When do you plan to join the PG?'
-                                    onChange={(value) => handleChange('When_do_you_plan_to_join_the_PG', value)}
-                                    value={leadsConfig.When_do_you_plan_to_join_the_PG}
+                                    label='Email Address'
+                                    onChange={(value) => handleChange('email', value)}
+                                    value={leadsConfig.email}
                                 />
                                 <SwitchInput label='Phone' onChange={(value) => handleChange('phone', value)} value={leadsConfig.phone} />
                             </Box>
@@ -161,7 +161,7 @@ const Leads = ({ dialogProps }) => {
                 )}
             </Box>
             <StyledButton
-                disabled={!leadsConfig['Preferred_Call_Time'] && !leadsConfig['phone'] && !leadsConfig['When_do_you_plan_to_join_the_PG'] && leadsConfig['status']}
+                disabled={!leadsConfig['name'] && !leadsConfig['phone'] && !leadsConfig['email'] && leadsConfig['status']}
                 style={{ marginBottom: 10, marginTop: 10 }}
                 variant='contained'
                 onClick={onSave}
