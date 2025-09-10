@@ -148,10 +148,10 @@ const Leads = ({ dialogProps }) => {
                         <Typography variant='h4'>Form fields</Typography>
                         <Box sx={{ width: '100%' }}>
                             <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 1 }}>
-                                <SwitchInput label='Preferred Call Time' onChange={(value) => handleChange('name', value)} value={leadsConfig.name} />
+                                <SwitchInput label='Preferred Call Time' onChange={(value) => handleChange('Preferred Call Time', value)} value={leadsConfig.Preferred Call Time} />
                                 <SwitchInput
                                     label='When do you plan to join the PG?'
-                                    onChange={(value) => handleChange('name', value)} value={leadsConfig.name}
+                                    onChange={(value) => handleChange('When do you plan to join the PG?', value)} value={leadsConfig.When do you plan to join the PG?}
                                 />
                                 <SwitchInput label='phone' onChange={(value) => handleChange('phone', value)} value={leadsConfig.phone} />
                             </Box>
@@ -160,7 +160,7 @@ const Leads = ({ dialogProps }) => {
                 )}
             </Box>
             <StyledButton
-                disabled={!leadsConfig['name'] && !leadsConfig['phone'] && !leadsConfig['email'] && leadsConfig['status']}
+                disabled={!leadsConfig['Preferred Call Time'] && !leadsConfig['phone'] && !leadsConfig['When do you plan to join the PG?'] && leadsConfig['status']}
                 style={{ marginBottom: 10, marginTop: 10 }}
                 variant='contained'
                 onClick={onSave}
