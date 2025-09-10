@@ -150,11 +150,16 @@ const Leads = ({ dialogProps }) => {
                             <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 1 }}>
                                 <SwitchInput label='Name' onChange={(value) => handleChange('name', value)} value={leadsConfig.name} />
                                 <SwitchInput
-                                    label='Email Address'
-                                    onChange={(value) => handleChange('email', value)}
-                                    value={leadsConfig.email}
+                                    label='Aapko kab call karein?'
+                                    onChange={(value) => handleChange('Aapkokabcallkarein?', value)}
+                                    value={leadsConfig.Aapkokabcallkarein?}
                                 />
                                 <SwitchInput label='Phone' onChange={(value) => handleChange('phone', value)} value={leadsConfig.phone} />
+                                <SwitchInput
+                                    label='PG join kab karenge?'
+                                    onChange={(value) => handleChange('PGjoinkabkarenge', value)}
+                                    value={leadsConfig.PGjoinkabkarenge}
+                                />
                             </Box>
                         </Box>
                     </>
