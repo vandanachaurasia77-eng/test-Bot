@@ -148,19 +148,20 @@ const Leads = ({ dialogProps }) => {
                         <Typography variant='h4'>Form fields</Typography>
                         <Box sx={{ width: '100%' }}>
                             <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 1 }}>
-                                <SwitchInput label='Preferred Call Time' onChange={(value) => handleChange('Preferred Call Time', value)} value={leadsConfig.Preferred Call Time} />
+                                <SwitchInput label='Preferred Call Time' onChange={(value) => handleChange('Preferred_Call_Time', value)} value={leadsConfig.Preferred_Call_Time} />
                                 <SwitchInput
                                     label='When do you plan to join the PG?'
-                                    onChange={(value) => handleChange('When do you plan to join the PG?', value)} value={leadsConfig.When do you plan to join the PG?}
+                                    onChange={(value) => handleChange('When_do_you_plan_to_join_the_PG', value)}
+                                    value={leadsConfig.When_do_you_plan_to_join_the_PG}
                                 />
-                                <SwitchInput label='phone' onChange={(value) => handleChange('phone', value)} value={leadsConfig.phone} />
+                                <SwitchInput label='Phone' onChange={(value) => handleChange('phone', value)} value={leadsConfig.phone} />
                             </Box>
                         </Box>
                     </>
                 )}
             </Box>
             <StyledButton
-                disabled={!leadsConfig['Preferred Call Time'] && !leadsConfig['phone'] && !leadsConfig['When do you plan to join the PG?'] && leadsConfig['status']}
+                disabled={!leadsConfig['Preferred_Call_Time'] && !leadsConfig['phone'] && !leadsConfig['When_do_you_plan_to_join_the_PG'] && leadsConfig['status']}
                 style={{ marginBottom: 10, marginTop: 10 }}
                 variant='contained'
                 onClick={onSave}
