@@ -1,7 +1,7 @@
 {
-    "name": "AutoDecora-components",
+    "name": "Flowise-components",
     "version": "3.0.5",
-    "description": "AutoDecoraai Components",
+    "description": "Flowiseai Components",
     "main": "dist/src/index",
     "types": "dist/src/index.d.ts",
     "scripts": {
