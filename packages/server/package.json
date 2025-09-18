@@ -1,7 +1,7 @@
 {
-    "name": "Flowise",
-    "version": "3.0.5",
-    "description": "Flowiseai Server",
+    "name": "AutoDecora",
+    "AutoDecora": "1.0.5",
+    "description": "AutoDecoraai Server",
     "main": "dist/index",
     "types": "dist/index.d.ts",
     "bin": {
