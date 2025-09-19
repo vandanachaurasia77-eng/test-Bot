@@ -494,13 +494,29 @@ const ProfileSection = ({ handleLogout }) => {
                                                         setOpen(false)
                                                         setAboutDialogOpen(true)
                                                     }}
-                                                 >
+                                                >
+                                                    <ListItemIcon>
+                                                        <IconInfoCircle stroke={1.5} size='1.3rem' />
+                                                    </ListItemIcon>
+                                                    <ListItemText primary={<Typography variant='body2'>AutoDecora</Typography>} />
+                                                </ListItemButton>
+                                                {isAuthenticated && !currentUser.isSSO && !isCloud && (
+                                                    <ListItemButton
+                                                        sx={{ borderRadius: `${customization.borderRadius}px` }}
+                                                        onClick={() => {
+                                                            setOpen(false)
+                                                            navigate('/user-profile')
+                                                        }}
+                                                    >
                                                         <ListItemIcon>
                                                             <IconUserEdit stroke={1.5} size='1.3rem' />
                                                         </ListItemIcon>
                                                         <ListItemText primary={<Typography variant='body2'>Update Profile</Typography>} />
                                                     </ListItemButton>
-                                                }}
+                                                )}
+                                                <ListItemButton
+                                                    sx={{ borderRadius: `${customization.borderRadius}px` }}
+                                                    onClick={handleLogout}
                                                 >
                                                     <ListItemIcon>
                                                         <IconLogout stroke={1.5} size='1.3rem' />
