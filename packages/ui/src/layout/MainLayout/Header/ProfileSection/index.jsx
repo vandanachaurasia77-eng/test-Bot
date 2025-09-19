@@ -500,10 +500,7 @@ const ProfileSection = ({ handleLogout }) => {
                                                         </ListItemIcon>
                                                         <ListItemText primary={<Typography variant='body2'>Update Profile</Typography>} />
                                                     </ListItemButton>
-                                                )}
-                                                <ListItemButton
-                                                    sx={{ borderRadius: `${customization.borderRadius}px` }}
-                                                    onClick={handleLogout}
+                                                }}
                                                 >
                                                     <ListItemIcon>
                                                         <IconLogout stroke={1.5} size='1.3rem' />
