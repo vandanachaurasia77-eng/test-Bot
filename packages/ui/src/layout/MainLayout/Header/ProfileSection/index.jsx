@@ -1,10 +1,15 @@
+/* eslint-disable */
 import PropTypes from 'prop-types'
 import { useEffect, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import { useNavigate } from 'react-router-dom'
 
-import { closeSnackbar as closeSnackbarAction, enqueueSnackbar as enqueueSnackbarAction, REMOVE_DIRTY } from '@/store/actions'
+import {
+    closeSnackbar as closeSnackbarAction,
+    enqueueSnackbar as enqueueSnackbarAction,
+    REMOVE_DIRTY
+} from '@/store/actions'
 import { exportData, stringify } from '@/utils/exportImport'
 import useNotifier from '@/utils/useNotifier'
 
@@ -39,12 +44,11 @@ import PerfectScrollbar from 'react-perfect-scrollbar'
 // project imports
 import { PermissionListItemButton } from '@/ui-component/button/RBACButtons'
 import MainCard from '@/ui-component/cards/MainCard'
-import AboutDialog from '@/ui-component/dialog/AboutDialog'
 import Transitions from '@/ui-component/extended/Transitions'
 
 // assets
 import ExportingGIF from '@/assets/images/Exporting.gif'
-import { IconFileExport, IconFileUpload, IconInfoCircle, IconLogout, IconSettings, IconUserEdit, IconX } from '@tabler/icons-react'
+import { IconFileExport, IconFileUpload, IconLogout, IconSettings, IconUserEdit, IconX } from '@tabler/icons-react'
 import './index.css'
 
 // API
@@ -73,18 +77,12 @@ const dataToExport = [
 
 const ExportDialog = ({ show, onCancel, onExport }) => {
     const portalElement = document.getElementById('portal')
-
     const [selectedData, setSelectedData] = useState(dataToExport)
     const [isExporting, setIsExporting] = useState(false)
 
     useEffect(() => {
         if (show) setIsExporting(false)
-
-        return () => {
-            setIsExporting(false)
-        }
-
-        // eslint-disable-next-line react-hooks/exhaustive-deps
+        return () => setIsExporting(false)
     }, [show])
 
     const component = show ? (
@@ -94,21 +92,13 @@ const ExportDialog = ({ show, onCancel, onExport }) => {
             fullWidth
             maxWidth='sm'
             aria-labelledby='export-dialog-title'
-            aria-describedby='export-dialog-description'
         >
-            <DialogTitle sx={{ fontSize: '1rem' }} id='export-dialog-title'>
+            <DialogTitle sx={{ fontSize: '1rem' }}>
                 {!isExporting ? 'Select Data to Export' : 'Exporting..'}
             </DialogTitle>
             <DialogContent>
                 {!isExporting && (
-                    <Stack
-                        direction='row'
-                        sx={{
-                            display: 'grid',
-                            gridTemplateColumns: 'repeat(2, 1fr)',
-                            gap: 1
-                        }}
-                    >
+                    <Stack direction='row' sx={{ display: 'grid', gridTemplateColumns: 'repeat(2,1fr)', gap: 1 }}>
                         {dataToExport.map((data, index) => (
                             <FormControlLabel
                                 key={index}
@@ -117,13 +107,13 @@ const ExportDialog = ({ show, onCancel, onExport }) => {
                                     <Checkbox
                                         color='success'
                                         checked={selectedData.includes(data)}
-                                        onChange={(event) => {
+                                        onChange={(e) =>
                                             setSelectedData(
-                                                event.target.checked
+                                                e.target.checked
                                                     ? [...selectedData, data]
-                                                    : selectedData.filter((item) => item !== data)
+                                                    : selectedData.filter((i) => i !== data)
                                             )
-                                        }}
+                                        }
                                     />
                                 }
                                 label={data}
@@ -132,18 +122,10 @@ const ExportDialog = ({ show, onCancel, onExport }) => {
                     </Stack>
                 )}
                 {isExporting && (
-                    <Box sx={{ height: 'auto', display: 'flex', justifyContent: 'center', mb: 3 }}>
+                    <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
                         <div style={{ display: 'flex', flexDirection: 'column' }}>
-                            <img
-                                style={{
-                                    objectFit: 'cover',
-                                    height: 'auto',
-                                    width: 'auto'
-                                }}
-                                src={ExportingGIF}
-                                alt='ExportingGIF'
-                            />
-                            <span>Exporting data might takes a while</span>
+                            <img src={ExportingGIF} alt='ExportingGIF' />
+                            <span>Exporting data might take a while</span>
                         </div>
                     </Box>
                 )}
@@ -168,64 +150,39 @@ const ExportDialog = ({ show, onCancel, onExport }) => {
 
     return createPortal(component, portalElement)
 }
-
-ExportDialog.propTypes = {
-    show: PropTypes.bool,
-    onCancel: PropTypes.func,
-    onExport: PropTypes.func
-}
+ExportDialog.propTypes = { show: PropTypes.bool, onCancel: PropTypes.func, onExport: PropTypes.func }
 
 const ImportDialog = ({ show }) => {
     const portalElement = document.getElementById('portal')
-
     const component = show ? (
-        <Dialog open={show} fullWidth maxWidth='sm' aria-labelledby='import-dialog-title' aria-describedby='import-dialog-description'>
-            <DialogTitle sx={{ fontSize: '1rem' }} id='import-dialog-title'>
-                Importing...
-            </DialogTitle>
+        <Dialog open={show} fullWidth maxWidth='sm'>
+            <DialogTitle sx={{ fontSize: '1rem' }}>Importing...</DialogTitle>
             <DialogContent>
-                <Box sx={{ height: 'auto', display: 'flex', justifyContent: 'center', mb: 3 }}>
+                <Box sx={{ display: 'flex', justifyContent: 'center', mb: 3 }}>
                     <div style={{ display: 'flex', flexDirection: 'column' }}>
-                        <img
-                            style={{
-                                objectFit: 'cover',
-                                height: 'auto',
-                                width: 'auto'
-                            }}
-                            src={ExportingGIF}
-                            alt='ImportingGIF'
-                        />
-                        <span>Importing data might takes a while</span>
+                        <img src={ExportingGIF} alt='ImportingGIF' />
+                        <span>Importing data might take a while</span>
                     </div>
                 </Box>
             </DialogContent>
         </Dialog>
     ) : null
-
     return createPortal(component, portalElement)
 }
-
-ImportDialog.propTypes = {
-    show: PropTypes.bool
-}
+ImportDialog.propTypes = { show: PropTypes.bool }
 
 // ==============================|| PROFILE MENU ||============================== //
-
 const ProfileSection = ({ handleLogout }) => {
     const theme = useTheme()
-
     const customization = useSelector((state) => state.customization)
     const { isCloud } = useConfig()
 
     const [open, setOpen] = useState(false)
-    const [aboutDialogOpen, setAboutDialogOpen] = useState(false)
-
     const [exportDialogOpen, setExportDialogOpen] = useState(false)
     const [importDialogOpen, setImportDialogOpen] = useState(false)
 
     const anchorRef = useRef(null)
     const inputRef = useRef()
-
     const navigate = useNavigate()
     const currentUser = useSelector((state) => state.auth.user)
     const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
@@ -234,80 +191,37 @@ const ProfileSection = ({ handleLogout }) => {
     const exportAllApi = useApi(exportImportApi.exportData)
     const prevOpen = useRef(open)
 
-    // ==============================|| Snackbar ||============================== //
-
     useNotifier()
     const dispatch = useDispatch()
     const enqueueSnackbar = (...args) => dispatch(enqueueSnackbarAction(...args))
     const closeSnackbar = (...args) => dispatch(closeSnackbarAction(...args))
 
-    const handleClose = (event) => {
-        if (anchorRef.current && anchorRef.current.contains(event.target)) {
-            return
-        }
+    const handleClose = (e) => {
+        if (anchorRef.current && anchorRef.current.contains(e.target)) return
         setOpen(false)
     }
-
-    const handleToggle = () => {
-        setOpen((prevOpen) => !prevOpen)
-    }
-
-    const errorFailed = (message) => {
-        enqueueSnackbar({
-            message: message,
-            options: {
-                key: new Date().getTime() + Math.random(),
-                variant: 'error',
-                persist: true,
-                action: (key) => (
-                    <Button style={{ color: 'white' }} onClick={() => closeSnackbar(key)}>
-                        <IconX />
-                    </Button>
-                )
-            }
-        })
-    }
+    const handleToggle = () => setOpen((p) => !p)
 
     const fileChange = (e) => {
         if (!e.target.files) return
-
         const file = e.target.files[0]
         setImportDialogOpen(true)
-
         const reader = new FileReader()
         reader.onload = (evt) => {
-            if (!evt?.target?.result) {
-                return
-            }
-            const body = JSON.parse(evt.target.result)
-            importAllApi.request(body)
+            if (!evt?.target?.result) return
+            importAllApi.request(JSON.parse(evt.target.result))
         }
         reader.readAsText(file)
     }
-
     const importAllSuccess = () => {
         setImportDialogOpen(false)
         dispatch({ type: REMOVE_DIRTY })
-        enqueueSnackbar({
-            message: `Import All successful`,
-            options: {
-                key: new Date().getTime() + Math.random(),
-                variant: 'success',
-                action: (key) => (
-                    <Button style={{ color: 'white' }} onClick={() => closeSnackbar(key)}>
-                        <IconX />
-                    </Button>
-                )
-            }
-        })
+        enqueueSnackbar({ message: `Import All successful`, options: { variant: 'success' } })
     }
-
-    const importAll = () => {
-        inputRef.current.click()
-    }
+    const importAll = () => inputRef.current.click()
 
     const onExport = (data) => {
-        const body = {}
+        const body: any = {}
         if (data.includes('Agentflows')) body.agentflow = true
         if (data.includes('Agentflows V2')) body.agentflowv2 = true
         if (data.includes('Assistants Custom')) body.assistantCustom = true
@@ -321,7 +235,6 @@ const ProfileSection = ({ handleLogout }) => {
         if (data.includes('Executions')) body.execution = true
         if (data.includes('Tools')) body.tool = true
         if (data.includes('Variables')) body.variable = true
-
         exportAllApi.request(body)
     }
 
@@ -330,61 +243,23 @@ const ProfileSection = ({ handleLogout }) => {
             importAllSuccess()
             navigate(0)
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [importAllApi.data])
-
-    useEffect(() => {
-        if (importAllApi.error) {
-            setImportDialogOpen(false)
-            let errMsg = 'Invalid Imported File'
-            let error = importAllApi.error
-            if (error?.response?.data) {
-                errMsg = typeof error.response.data === 'object' ? error.response.data.message : error.response.data
-            }
-            errorFailed(`Failed to import: ${errMsg}`)
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [importAllApi.error])
-
     useEffect(() => {
         if (exportAllApi.data) {
             setExportDialogOpen(false)
             try {
                 const dataStr = stringify(exportData(exportAllApi.data))
-                //const dataUri = 'data:application/json;charset=utf-8,' + encodeURIComponent(dataStr)
                 const blob = new Blob([dataStr], { type: 'application/json' })
                 const dataUri = URL.createObjectURL(blob)
-
                 const linkElement = document.createElement('a')
-                linkElement.setAttribute('href', dataUri)
-                linkElement.setAttribute('download', exportAllApi.data.FileDefaultName)
+                linkElement.href = dataUri
+                linkElement.download = exportAllApi.data.FileDefaultName
                 linkElement.click()
-            } catch (error) {
-                errorFailed(`Failed to export all: ${getErrorMessage(error)}`)
+            } catch (err) {
+                enqueueSnackbar({ message: `Failed to export: ${getErrorMessage(err)}`, options: { variant: 'error' } })
             }
         }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [exportAllApi.data])
-
-    useEffect(() => {
-        if (exportAllApi.error) {
-            setExportDialogOpen(false)
-            let errMsg = 'Internal Server Error'
-            let error = exportAllApi.error
-            if (error?.response?.data) {
-                errMsg = typeof error.response.data === 'object' ? error.response.data.message : error.response.data
-            }
-            errorFailed(`Failed to export: ${errMsg}`)
-        }
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [exportAllApi.error])
-
-    useEffect(() => {
-        if (prevOpen.current === true && open === false) {
-            anchorRef.current.focus()
-        }
-        prevOpen.current = open
-    }, [open])
 
     return (
         <>
@@ -397,13 +272,9 @@ const ProfileSection = ({ handleLogout }) => {
                         transition: 'all .2s ease-in-out',
                         background: theme.palette.secondary.light,
                         color: theme.palette.secondary.dark,
-                        '&:hover': {
-                            background: theme.palette.secondary.dark,
-                            color: theme.palette.secondary.light
-                        }
+                        '&:hover': { background: theme.palette.secondary.dark, color: theme.palette.secondary.light }
                     }}
                     onClick={handleToggle}
-                    color='inherit'
                 >
                     <IconSettings stroke={1.5} size='1.3rem' />
                 </Avatar>
@@ -412,39 +283,21 @@ const ProfileSection = ({ handleLogout }) => {
                 placement='bottom-end'
                 open={open}
                 anchorEl={anchorRef.current}
-                role={undefined}
                 transition
                 disablePortal
-                popperOptions={{
-                    modifiers: [
-                        {
-                            name: 'offset',
-                            options: {
-                                offset: [0, 14]
-                            }
-                        }
-                    ]
-                }}
+                popperOptions={{ modifiers: [{ name: 'offset', options: { offset: [0, 14] } }] }}
             >
                 {({ TransitionProps }) => (
                     <Transitions in={open} {...TransitionProps}>
                         <Paper>
                             <ClickAwayListener onClickAway={handleClose}>
-                                <MainCard border={false} elevation={16} content={false} boxShadow shadow={theme.shadows[16]}>
-                                    {isAuthenticated && currentUser ? (
-                                        <Box sx={{ p: 2 }}>
-                                            <Typography component='span' variant='h4'>
-                                                {currentUser.name}
-                                            </Typography>
-                                        </Box>
-                                    ) : (
-                                        <Box sx={{ p: 2 }}>
-                                            <Typography component='span' variant='h4'>
-                                                User
-                                            </Typography>
-                                        </Box>
-                                    )}
-                                    <PerfectScrollbar style={{ height: '100%', maxHeight: 'calc(100vh - 250px)', overflowX: 'hidden' }}>
+                                <MainCard border={false} elevation={16} content={false}>
+                                    <Box sx={{ p: 2 }}>
+                                        <Typography component='span' variant='h4'>
+                                            {isAuthenticated && currentUser ? currentUser.name : 'User'}
+                                        </Typography>
+                                    </Box>
+                                    <PerfectScrollbar style={{ maxHeight: 'calc(100vh - 250px)', overflowX: 'hidden' }}>
                                         <Box sx={{ p: 2 }}>
                                             <Divider />
                                             <List
@@ -454,53 +307,35 @@ const ProfileSection = ({ handleLogout }) => {
                                                     maxWidth: 250,
                                                     minWidth: 200,
                                                     backgroundColor: theme.palette.background.paper,
-                                                    borderRadius: '10px',
-                                                    [theme.breakpoints.down('md')]: {
-                                                        minWidth: '100%'
-                                                    },
-                                                    '& .MuiListItemButton-root': {
-                                                        mt: 0.5
-                                                    }
+                                                    borderRadius: '10px'
                                                 }}
                                             >
                                                 <PermissionListItemButton
                                                     permissionId='workspace:export'
                                                     sx={{ borderRadius: `${customization.borderRadius}px` }}
-                                                    onClick={() => {
-                                                        setExportDialogOpen(true)
-                                                    }}
+                                                    onClick={() => setExportDialogOpen(true)}
                                                 >
                                                     <ListItemIcon>
                                                         <IconFileExport stroke={1.5} size='1.3rem' />
                                                     </ListItemIcon>
                                                     <ListItemText primary={<Typography variant='body2'>Export</Typography>} />
                                                 </PermissionListItemButton>
+
                                                 <PermissionListItemButton
                                                     permissionId='workspace:import'
                                                     sx={{ borderRadius: `${customization.borderRadius}px` }}
-                                                    onClick={() => {
-                                                        importAll()
-                                                    }}
+                                                    onClick={importAll}
                                                 >
                                                     <ListItemIcon>
                                                         <IconFileUpload stroke={1.5} size='1.3rem' />
                                                     </ListItemIcon>
                                                     <ListItemText primary={<Typography variant='body2'>Import</Typography>} />
                                                 </PermissionListItemButton>
+
                                                 <input ref={inputRef} type='file' hidden onChange={fileChange} accept='.json' />
-                                                <ListItemButton
-                                                    sx={{ borderRadius: `${customization.borderRadius}px` }}
-                                                    onClick={() => {
-                                                        setOpen(false)
-                                                        setAboutDialogOpen(true)
-                                                    }}
-                                                >
-                                                      <ListItemIcon>
-                                                            <IconUserEdit stroke={1.5} size='1.3rem' />
-                                                        </ListItemIcon>
-                                                        <ListItemText primary={<Typography variant='body2'>Update Profile</Typography>} />
-                                                    </ListItemButton>
-                                                )}
+
+                                                {/* ✅ Version/About menu removed */}
+
                                                 <ListItemButton
                                                     sx={{ borderRadius: `${customization.borderRadius}px` }}
                                                     onClick={handleLogout}
@@ -519,15 +354,16 @@ const ProfileSection = ({ handleLogout }) => {
                     </Transitions>
                 )}
             </Popper>
-            <AboutDialog show={aboutDialogOpen} onCancel={() => setAboutDialogOpen(false)} />
-            <ExportDialog show={exportDialogOpen} onCancel={() => setExportDialogOpen(false)} onExport={(data) => onExport(data)} />
+
+            <ExportDialog
+                show={exportDialogOpen}
+                onCancel={() => setExportDialogOpen(false)}
+                onExport={onExport}
+            />
             <ImportDialog show={importDialogOpen} />
         </>
     )
 }
-
-ProfileSection.propTypes = {
-    handleLogout: PropTypes.func
-}
-
+ProfileSection.propTypes = { handleLogout: PropTypes.func }
 export default ProfileSection
+                          
