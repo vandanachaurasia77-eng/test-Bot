@@ -393,7 +393,7 @@ const APIKey = () => {
                             search={true}
                             searchPlaceholder='Search API Keys'
                             title='API Keys'
-                            description='Flowise API & SDK authentication keys'
+                            description='AutoDecora API & SDK authentication keys'
                         >
                             <PermissionButton
                                 permissionId={'apikeys:import'}
