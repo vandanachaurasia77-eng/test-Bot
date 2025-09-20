@@ -45,7 +45,7 @@ const AboutDialog = ({ show, onCancel }) => {
             aria-describedby='alert-dialog-description'
         >
             <DialogTitle sx={{ fontSize: '1rem' }} id='alert-dialog-title'>
-                Flowise Version
+                AutoDecora Version
             </DialogTitle>
             <DialogContent>
                 {data && (
@@ -60,9 +60,8 @@ const AboutDialog = ({ show, onCancel }) => {
                             </TableHead>
                             <TableBody>
                                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                    <TableCell component="th" scope="row">1.0.5</TableCell>
-                                     <TableCell component="th" scope="row">1.0.5</TableCell>
-                                    </TableCell>
+                                    <TableCell component='th' scope='row'>1.0.5</TableCell>
+                                    <TableCell component='th' scope='row'>1.0.5</TableCell>
                                     <TableCell>{moment(data.published_at).fromNow()}</TableCell>
                                 </TableRow>
                             </TableBody>
