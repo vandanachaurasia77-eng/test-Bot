@@ -60,13 +60,8 @@ const AboutDialog = ({ show, onCancel }) => {
                             </TableHead>
                             <TableBody>
                                 <TableRow sx={{ '&:last-child td, &:last-child th': { border: 0 } }}>
-                                    <TableCell component='th' scope='row'>
-                                        {data.currentVersion}
-                                    </TableCell>
-                                    <TableCell component='th' scope='row'>
-                                        <a target='_blank' rel='noreferrer' href={data.html_url}>
-                                            {data.name}
-                                        </a>
+                                    <TableCell component="th" scope="row">1.0.5</TableCell>
+                                     <TableCell component="th" scope="row">1.0.5</TableCell>
                                     </TableCell>
                                     <TableCell>{moment(data.published_at).fromNow()}</TableCell>
                                 </TableRow>
