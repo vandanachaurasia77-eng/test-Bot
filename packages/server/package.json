@@ -1,6 +1,6 @@
 {
     "name": "AutoDecora",
-    "AutoDecora": "AutoDecora",
+    "Version": "1.0.5",
     "description": "AutoDecoraai Server",
     "main": "dist/index",
     "types": "dist/index.d.ts",
